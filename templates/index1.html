@@ -22,6 +22,7 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
+                
                     <form method="POST">
                         <div class="field has-addons">
                             <div class="control is-expanded">
@@ -34,6 +35,7 @@
                             </div>
                         </div>
                     </form>
+                
                 </div>
             </div>
         </div>
@@ -42,7 +44,7 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
-                    
+                {% for weather in weather_data %}    
                     <div class="box">
                         <article class="media">
                             <div class="media-left">
@@ -53,16 +55,22 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <span class="title">{{ weather.city }}</span>
+                                        <span class="title">{{ weather.city.name }}</span>
                                         <br>
-                                        <span class="subtitle">{{ weather.temperature }}° F</span>
+                                        <span class="subtitle">{{ weather.temperature }}° C</span><br>
+                                        <span class="subtitle">Humidity: {{ weather.humidity }}%</span>
                                         <br> {{ weather.description }}
                                     </p>
                                 </div>
                             </div>
+                            <div class='media-right'>
+                                <a href="{{url_for('d_city', name=weather.city)}}">
+                                    <button class="delete"></button>
+                                </a>
+                            </div>
                         </article>
                     </div>
-                    
+                {% endfor %}
                 </div>
             </div>
         </div>
