@@ -64,10 +64,11 @@
                                 </div>
                             </div>
                             <div class='media-right'>
-                                <a href="{{url_for('d_city', name=weather.city)}}">
+                                <a href="{{ url_for('delete_city', name = weather.city.name) }}">
                                     <button class="delete"></button>
                                 </a>
-                            </div>
+                            </div>    
+                            
                         </article>
                     </div>
                 {% endfor %}
