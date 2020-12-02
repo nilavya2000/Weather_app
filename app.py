@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import requests
 
@@ -17,32 +17,11 @@ def g_w(c):
 	return r
 
 
-@app.route('/', methods=['GET','POST'])
-def index():
-	e_r=''
-	if request.method == 'POST':
-		new_city = request.form.get('city')
-		if new_city:
-			e_city = city.query.filter_by(name=new_city).first()
-
-			if not e_city:
-				n_d_obj = g_w(new_city)
-				if n_d_obj['cod']==200:
-					new_city_obj = city(name=new_city)
-					db.session.add(new_city_obj)
-					db.session.commit()
-				else:
-					e_r='city doesnot exist in the world '
-			else:
-				e_r='City already exist. '
-
-
+@app.route('/')
+def index_get():	
 	cities = city.query.all()
-	# url='http://api.openweathermap.org/data/2.5/weather?q={}&appid=da607fdc1833d3f1052c37181b2c452c'
-	
+		
 	weather_data=[]
-
-
 	for c in cities:
 		r= g_w(c.name)
 
@@ -58,14 +37,37 @@ def index():
 
 	return render_template('index1.html', weather_data=weather_data)
 
-@app.route('/delete/<name>/')
-def d_city(name):
-	c_name=city.query.filter_by(name=name)
+
+
+
+@app.route('/', methods=['POST'])
+def index_post():
+	e_r=''
 	
+	new_city = request.form.get('city')
+	if new_city:
+		e_city = city.query.filter_by(name=new_city).first()
+
+		if not e_city:
+			n_d_obj = g_w(new_city)
+			if n_d_obj['cod']==200:
+				new_city_obj = city(name=new_city)
+				db.session.add(new_city_obj)
+				db.session.commit()
+			else:
+				e_r='city doesnot exist in the world '
+		else:
+			e_r='City already exist. '
+	return redirect(url_for('index_get'))
+
+
+@app.route('/delete/<name>/')
+def delete_city(name):
+	c_name=city.query.filter_by(name=name).first()
 	db.session.delete(c_name)
 	db.session.commit()
-
-	return redirect('/')
+	
+	return redirect(url_for('index_get'))
 
 if __name__ == '__main__':
    app.run(debug=True) 
