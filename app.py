@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import requests
-
+from datetime import datetime
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///weather.db' 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -34,8 +34,10 @@ def index_get():
 		}
 		
 		weather_data.append(weather)
-
-	return render_template('index1.html', weather_data=weather_data)
+	t=datetime.now()
+	t_now = t.strftime("%H:%M:%S")
+	print(t_now)
+	return render_template('index1.html', weather_data=weather_data, t_now=t_now)
 
 
 
