@@ -1,7 +1,7 @@
 # Weather App <br>
 ## About the Project: - 
 <p><i>
-  This main aim of this project is to build an application that detects human faces and counts the number of faces in the frame and can also be used to detect number of persons entering or moving out from a specfic place. 
+    In this project, users can look for the live weather of all the cities. The weather is fetched using OpenWeatherMap API and one can add n number of cities in it. Users can also look for the humidity, temperature and the weather description for each of the cities. Users can see the weather hazardously without being searched every time as the data is being stored in the database. The user can add or delete cities according to their need. And in the footer, I have added the current time and the search box to look for the new cities.
   </i>
 </p>
 
