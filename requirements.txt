@@ -20,3 +20,4 @@ six==1.14.0
 PyGObject>=3.36.0
 python-apt==2.0.0+ubuntu0.20.4.4 
 urllib3>=1.25.8
+gunicorn==20.1.0
